@@ -29,10 +29,13 @@ setup(
         'Programming Language :: Python :: 3',
     ],
     license='MIT License',
+    package_dir={
+        '': 'src'
+    },
     packages=[
         "image_complete",
     ],
     version="0.0.1",
-    author='Peter "fracpete" Reutemann',
+    author='Peter Reutemann',
     author_email='fracpete@waikato.ac.nz',
 )

@@ -1,13 +1,11 @@
 import os
 
 
-def is_jpg_complete(img_path):
+def is_png_complete(img_path):
     """
-    Checks whether the JPG image is complete.
+    Checks whether the PNG image is complete.
 
-    https://en.wikipedia.org/wiki/Portable_Network_Graphics#Critical_chunks
-    http://www.libpng.org/pub/png/spec/1.2/PNG-Structure.html#Chunk-layout
-    http://www.libpng.org/pub/png/spec/1.2/PNG-Chunks.html#C.IEND
+    http://en.wikipedia.org/wiki/JPEG#Syntax_and_structure
 
     :param img_path: the absolute path to the PNG image
     :type img_path: str

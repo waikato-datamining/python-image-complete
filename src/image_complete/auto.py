@@ -1,5 +1,6 @@
-from jpg import is_jpg_complete
-from png import is_png_complete
+from image_complete.gif import is_gif_complete
+from image_complete.jpg import is_jpg_complete
+from image_complete.png import is_png_complete
 
 
 def is_image_complete(img_path):
@@ -14,7 +15,9 @@ def is_image_complete(img_path):
     """
 
     name = img_path.lower()
-    if name.endswith(".jpg") or name.endswith(".jpeg"):
+    if name.endswith(".gif"):
+        return is_gif_complete(img_path)
+    elif name.endswith(".jpg") or name.endswith(".jpeg"):
         return is_jpg_complete(img_path)
     elif name.endswith(".png"):
         return is_png_complete(img_path)
