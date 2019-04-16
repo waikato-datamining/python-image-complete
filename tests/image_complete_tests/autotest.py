@@ -39,6 +39,7 @@ class TestAuto(ImageCompleteTest):
         except:
             pass
 
+
 def suite():
     """
     Returns the test suite.
