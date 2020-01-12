@@ -1,3 +1,4 @@
+from image_complete.bmp import is_bmp_complete
 from image_complete.gif import is_gif_complete
 from image_complete.jpg import is_jpg_complete
 from image_complete.png import is_png_complete
@@ -21,5 +22,7 @@ def is_image_complete(img_path):
         return is_jpg_complete(img_path)
     elif name.endswith(".png"):
         return is_png_complete(img_path)
+    elif name.endswith(".bmp"):
+        return is_bmp_complete(img_path)
     else:
         raise Exception("Unsupported file type: " + img_path)

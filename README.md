@@ -1,23 +1,29 @@
 # python-image-complete
-Python 3 library for checking whether an image is complete or not (looking for EOF markers).
+Python 3 library for checking whether an image is complete or not. 
+It is either looking for EOF markers or checking the length of the file against one stored in file.
 
 ## Supported image formats
 
+* BMP (extension: .bmp)
 * GIF (extension: .gif)
 * JPG (extension: .jpg, .jpeg)
 * PNG (extension: .png)
 
-## EOF marker specifications
+## File structures
 
-* GIF
+* BMP (checks file length)
+
+  * https://en.wikipedia.org/wiki/BMP_file_format#File_structure
+
+* GIF (checks EOF marker)
 
   * https://en.wikipedia.org/wiki/GIF#File_format
 
-* JPG
+* JPG (checks EOF marker)
 
   * http://en.wikipedia.org/wiki/JPEG#Syntax_and_structure
 
-* PNG
+* PNG (checks EOF marker)
 
   * https://en.wikipedia.org/wiki/Portable_Network_Graphics#Critical_chunks
   * http://www.libpng.org/pub/png/spec/1.2/PNG-Structure.html#Chunk-layout
