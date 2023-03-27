@@ -2,6 +2,7 @@ from image_complete.bmp import is_bmp_complete
 from image_complete.gif import is_gif_complete
 from image_complete.jpg import is_jpg_complete
 from image_complete.png import is_png_complete
+from image_complete.webp import is_webp_complete
 
 
 def is_image_complete(img_path):
@@ -24,5 +25,7 @@ def is_image_complete(img_path):
         return is_png_complete(img_path)
     elif name.endswith(".bmp"):
         return is_bmp_complete(img_path)
+    elif name.endswith(".webp"):
+        return is_webp_complete(img_path)
     else:
         raise Exception("Unsupported file type: " + img_path)

@@ -4,6 +4,7 @@ import image_complete_tests.bmptest
 import image_complete_tests.giftest
 import image_complete_tests.jpgtest
 import image_complete_tests.pngtest
+import image_complete_tests.webptest
 
 
 def suite():
@@ -18,6 +19,7 @@ def suite():
     result.addTests(image_complete_tests.giftest.suite())
     result.addTests(image_complete_tests.jpgtest.suite())
     result.addTests(image_complete_tests.pngtest.suite())
+    result.addTests(image_complete_tests.webptest.suite())
     return result
 
 

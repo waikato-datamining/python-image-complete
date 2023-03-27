@@ -8,6 +8,7 @@ It is either looking for EOF markers or checking the length of the file against 
 * GIF (extension: .gif)
 * JPG (extension: .jpg, .jpeg)
 * PNG (extension: .png)
+* WebP (extension: .webp)
 
 ## File structures
 
@@ -28,7 +29,11 @@ It is either looking for EOF markers or checking the length of the file against 
   * https://en.wikipedia.org/wiki/Portable_Network_Graphics#Critical_chunks
   * http://www.libpng.org/pub/png/spec/1.2/PNG-Structure.html#Chunk-layout
   * http://www.libpng.org/pub/png/spec/1.2/PNG-Chunks.html#C.IEND
-  
+
+* WebP (compares data length after RIFF header with file length)
+
+  * https://developers.google.com/speed/webp/docs/riff_container
+
   
 ## Examples
 

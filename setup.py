@@ -1,6 +1,3 @@
-# setup.py
-# Copyright (C) 2019-2020 University of Waikato, Hamilton, NZ
-
 from setuptools import setup
 
 
@@ -35,7 +32,7 @@ setup(
     packages=[
         "image_complete",
     ],
-    version="0.0.2",
+    version="0.0.3",
     author='Peter Reutemann',
     author_email='fracpete@waikato.ac.nz',
 )
