@@ -1,6 +1,8 @@
 import unittest
 import os
 
+from io import BytesIO
+
 
 class ImageCompleteTest(unittest.TestCase):
 
@@ -24,3 +26,14 @@ class ImageCompleteTest(unittest.TestCase):
         :rtype: str
         """
         return self.data_dir() + os.sep + fname
+
+    def data_content(self, fname):
+        """
+        Returns the content of the file (without path).
+        :param fname: the filename (without path)
+        :type fname: str
+        :return: the content
+        :rtype: bytes
+        """
+        with open(self.data_dir() + os.sep + fname, "rb") as fp:
+            return BytesIO(fp.read())

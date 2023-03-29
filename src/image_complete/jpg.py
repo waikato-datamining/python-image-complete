@@ -1,27 +1,46 @@
-import os
+from io import BytesIO
+from .base import load
 
 
-def is_jpg_complete(img_path):
+def is_jpg(img):
+    """
+    Checks whether the image represents a JPG.
+
+    http://en.wikipedia.org/wiki/JPEG#Syntax_and_structure
+
+    :param img: the absolute path to the JPG image or a bytes/BytesIO object
+    :type img: str or bytes or BytesIO
+    :return: True if a bitmap
+    :rtype: bool
+    """
+    data, _ = load(img)
+    try:
+        data.seek(0)
+        header = data.read(2)
+        return (header[0] == 0xFF) and (header[1] == 0xD8)
+    except:
+        return False
+
+
+def is_jpg_complete(img):
     """
     Checks whether the JPG image is complete.
 
-    https://en.wikipedia.org/wiki/Portable_Network_Graphics#Critical_chunks
-    http://www.libpng.org/pub/png/spec/1.2/PNG-Structure.html#Chunk-layout
-    http://www.libpng.org/pub/png/spec/1.2/PNG-Chunks.html#C.IEND
+    http://en.wikipedia.org/wiki/JPEG#Syntax_and_structure
 
-    :param img_path: the absolute path to the PNG image
-    :type img_path: str
+    :param img: the absolute path to the JPG image or a bytes/BytesIO object
+    :type img: str or bytes or BytesIO
     :return: True if complete
     :rtype: bool
     """
-
     try:
-        flen = os.path.getsize(img_path)
-        if flen > 2:
-            with open(img_path, "rb") as f:
-                f.seek(flen - 2, 0)
-                marker = f.read(2)
-                return (marker[0] == 0xFF) and (marker[1] == 0xD9)
+        data, data_len = load(img)
+        if data is None:
+            return False
+        if data_len > 2:
+            data.seek(data_len - 2, 0)
+            marker = data.read(2)
+            return (marker[0] == 0xFF) and (marker[1] == 0xD9)
         else:
             return False
     except:
