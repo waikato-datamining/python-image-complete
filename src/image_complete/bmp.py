@@ -24,7 +24,7 @@ def is_bmp(img):
         return False
 
 
-def is_bmp_complete(img):
+def is_bmp_complete(img, strict=True):
     """
     Checks whether the BMP image is complete.
 
@@ -32,6 +32,8 @@ def is_bmp_complete(img):
 
     :param img: the absolute path to the BMP image or a bytes/BytesIO object
     :type img: str or bytes or BytesIO
+    :param strict: if True then no junk data after actual data is allowed
+    :type strict: bool
     :return: True if complete
     :rtype: bool
     """
@@ -43,7 +45,10 @@ def is_bmp_complete(img):
             data.seek(2, 0)
             data = data.read(4)
             blen = struct.unpack('I', data)
-            return blen[0] == data_len
+            if strict:
+                return blen[0] == data_len
+            else:
+                return blen[0] <= data_len
         else:
             return False
     except:

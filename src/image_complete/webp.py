@@ -24,7 +24,7 @@ def is_webp(img):
         return False
 
 
-def is_webp_complete(img):
+def is_webp_complete(img, strict=True):
     """
     Checks whether the WebP image is complete.
 
@@ -32,6 +32,8 @@ def is_webp_complete(img):
 
     :param img: the absolute path to the BMP image or a bytes/BytesIO object
     :type img: str or bytes or BytesIO
+    :param strict: if True then no junk data after actual data is allowed
+    :type strict: bool
     :return: True if complete
     :rtype: bool
     """
@@ -50,7 +52,10 @@ def is_webp_complete(img):
             data.seek(4, 0)
             data = data.read(4)
             d_len = struct.unpack('I', data)
-            return d_len[0] == data_len - 8  # RIFF/4 + DATALEN/4 = 8
+            if strict:
+                return d_len[0] == data_len - 8  # RIFF/4 + DATALEN/4 = 8
+            else:
+                return d_len[0] <= data_len - 8  # RIFF/4 + DATALEN/4 = 8
         else:
             return False
     except:

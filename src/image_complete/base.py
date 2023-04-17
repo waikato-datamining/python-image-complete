@@ -3,6 +3,10 @@ import os
 from io import BytesIO
 
 
+DEFAULT_CHECK_SIZE = 100
+""" the buffer size used to look for the EOF marker. """
+
+
 def load(img):
     """
     Loads the data and returns it as BytesIO object and the associated length.

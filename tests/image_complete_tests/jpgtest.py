@@ -32,6 +32,24 @@ class TestJpg(ImageCompleteTest):
     def test_empty_is_jpg_bytes(self):
         self.assertFalse(is_jpg(self.data_content("empty.jpg")))
 
+    def test_junk_jpg_strict(self):
+        self.assertFalse(is_jpg_complete(self.data_file("junk.jpg"), strict=True))
+
+    def test_junk_jpg_strict_bytes(self):
+        self.assertFalse(is_jpg_complete(self.data_content("junk.jpg"), strict=True))
+
+    def test_junk_jpg_lenient(self):
+        self.assertTrue(is_jpg_complete(self.data_file("junk.jpg"), strict=False, check_size=50))
+
+    def test_junk_jpg_lenient_bytes(self):
+        self.assertTrue(is_jpg_complete(self.data_content("junk.jpg"), strict=False, check_size=50))
+
+    def test_junk_jpg_lenient_short(self):
+        self.assertFalse(is_jpg_complete(self.data_file("junk.jpg"), strict=False, check_size=5))
+
+    def test_junk_jpg_lenient_short_bytes(self):
+        self.assertFalse(is_jpg_complete(self.data_content("junk.jpg"), strict=False, check_size=5))
+
 
 def suite():
     """

@@ -80,6 +80,84 @@ class TestAuto(ImageCompleteTest):
     def test_incomplete_webp_content(self):
         self.assertFalse(is_image_complete(self.data_content("incomplete.webp")))
 
+    def test_junk_bmp_strict(self):
+        self.assertFalse(is_image_complete(self.data_file("junk.bmp"), strict=True))
+
+    def test_junk_bmp_strict_bytes(self):
+        self.assertFalse(is_image_complete(self.data_content("junk.bmp"), strict=True))
+
+    def test_junk_bmp_lenient(self):
+        self.assertTrue(is_image_complete(self.data_file("junk.bmp"), strict=False))
+
+    def test_junk_bmp_lenient_bytes(self):
+        self.assertTrue(is_image_complete(self.data_content("junk.bmp"), strict=False))
+
+    def test_junk_webp_strict(self):
+        self.assertFalse(is_image_complete(self.data_file("junk.webp"), strict=True))
+
+    def test_junk_gif_strict(self):
+        self.assertFalse(is_image_complete(self.data_file("junk.gif"), strict=True))
+
+    def test_junk_gif_strict_bytes(self):
+        self.assertFalse(is_image_complete(self.data_content("junk.gif"), strict=True))
+
+    def test_junk_gif_lenient(self):
+        self.assertTrue(is_image_complete(self.data_file("junk.gif"), strict=False, check_size=50))
+
+    def test_junk_gif_lenient_bytes(self):
+        self.assertTrue(is_image_complete(self.data_content("junk.gif"), strict=False, check_size=50))
+
+    def test_junk_gif_lenient_short(self):
+        self.assertFalse(is_image_complete(self.data_file("junk.gif"), strict=False, check_size=5))
+
+    def test_junk_gif_lenient_short_bytes(self):
+        self.assertFalse(is_image_complete(self.data_content("junk.gif"), strict=False, check_size=5))
+
+    def test_junk_jpg_strict(self):
+        self.assertFalse(is_image_complete(self.data_file("junk.jpg"), strict=True))
+
+    def test_junk_jpg_strict_bytes(self):
+        self.assertFalse(is_image_complete(self.data_content("junk.jpg"), strict=True))
+
+    def test_junk_jpg_lenient(self):
+        self.assertTrue(is_image_complete(self.data_file("junk.jpg"), strict=False, check_size=50))
+
+    def test_junk_jpg_lenient_bytes(self):
+        self.assertTrue(is_image_complete(self.data_content("junk.jpg"), strict=False, check_size=50))
+
+    def test_junk_jpg_lenient_short(self):
+        self.assertFalse(is_image_complete(self.data_file("junk.jpg"), strict=False, check_size=5))
+
+    def test_junk_jpg_lenient_short_bytes(self):
+        self.assertFalse(is_image_complete(self.data_content("junk.jpg"), strict=False, check_size=5))
+
+    def test_junk_png_strict(self):
+        self.assertFalse(is_image_complete(self.data_file("junk.png"), strict=True))
+
+    def test_junk_png_strict_bytes(self):
+        self.assertFalse(is_image_complete(self.data_content("junk.png"), strict=True))
+
+    def test_junk_png_lenient(self):
+        self.assertTrue(is_image_complete(self.data_file("junk.png"), strict=False, check_size=50))
+
+    def test_junk_png_lenient_bytes(self):
+        self.assertTrue(is_image_complete(self.data_content("junk.png"), strict=False, check_size=50))
+
+    def test_junk_png_lenient_short(self):
+        self.assertFalse(is_image_complete(self.data_file("junk.png"), strict=False, check_size=5))
+
+    def test_junk_png_lenient_short_bytes(self):
+        self.assertFalse(is_image_complete(self.data_content("junk.png"), strict=False, check_size=5))
+
+    def test_junk_webp_strict_bytes(self):
+        self.assertFalse(is_image_complete(self.data_content("junk.webp"), strict=True))
+
+    def test_junk_webp_lenient(self):
+        self.assertTrue(is_image_complete(self.data_file("junk.webp"), strict=False))
+
+    def test_junk_webp_lenient_bytes(self):
+        self.assertTrue(is_image_complete(self.data_content("junk.webp"), strict=False))
+
     def test_unknown_type(self):
         try:
             is_image_complete(self.data_file("file.blah"))

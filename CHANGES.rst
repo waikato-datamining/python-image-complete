@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.0.5 (2023-04-17)
+------------------
+
+- added support for *lenient mode* via `strict` and `check_size` parameters
+
+
 0.0.4 (2023-03-30)
 ------------------
 

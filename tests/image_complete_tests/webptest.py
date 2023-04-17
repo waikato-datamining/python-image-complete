@@ -32,6 +32,18 @@ class TestPng(ImageCompleteTest):
     def test_empty_is_webp_bytes(self):
         self.assertFalse(is_webp(self.data_content("empty.webp")))
 
+    def test_junk_webp_strict(self):
+        self.assertFalse(is_webp_complete(self.data_file("junk.webp"), strict=True))
+
+    def test_junk_webp_strict_bytes(self):
+        self.assertFalse(is_webp_complete(self.data_content("junk.webp"), strict=True))
+
+    def test_junk_webp_lenient(self):
+        self.assertTrue(is_webp_complete(self.data_file("junk.webp"), strict=False))
+
+    def test_junk_webp_lenient_bytes(self):
+        self.assertTrue(is_webp_complete(self.data_content("junk.webp"), strict=False))
+
 
 def suite():
     """

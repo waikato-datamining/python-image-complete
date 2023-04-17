@@ -2,7 +2,12 @@
 
 Python 3 library for checking whether an image is complete or not. 
 It is either looking for EOF markers or checking the length of the file against one stored in the file.
-Can also operate on bytes or BytesIO objects.
+
+Can also operate on bytes or BytesIO objects. 
+
+By default, the library operates in **strict** mode, i.e., no trailing junk data 
+is tolerated. However, by supplying the parameters `strict` and `check_size` this
+can turned into **lenient** mode. `check_size` is only used for formats gif, jpg, png.
 
 
 ## Supported image formats
@@ -41,29 +46,46 @@ Can also operate on bytes or BytesIO objects.
   
 ## Examples
 
-* auto detection
+### Auto detection
 
-  ```python
-  from image_complete.auto import is_image_complete
+```python
+from image_complete.auto import is_image_complete
 
-  # using file names
-  print(is_image_complete("/some/where/hello_world.jpg"))
-  print(is_image_complete("/some/where/image.png"))
-  
-  # using bytes or BytesIO
-  with open("/some/where/image.bmp", "rb") as fp:
-      b = fp.read()
-  print(is_image_complete(b))
-  ```
+# using file names
+print(is_image_complete("/some/where/hello_world.jpg"))
+print(is_image_complete("/some/where/image.png"))
 
-* JPG specific
+# using bytes or BytesIO
+with open("/some/where/image.bmp", "rb") as fp:
+    b = fp.read()
+print(is_image_complete(b))
+```
 
-  ```python
-  from image_complete.jpg import is_jpg_complete, is_jpg
 
-  f = "/some/where/hello_world.jpg"
-  if is_jpg(f):
-      print(is_jpg_complete(f))
-  else:
-      print("Not a JPG!")
-  ```
+### JPG specific
+
+```python
+from image_complete.jpg import is_jpg_complete, is_jpg
+
+f = "/some/where/hello_world.jpg"
+if is_jpg(f):
+    print(is_jpg_complete(f))
+else:
+    print("Not a JPG!")
+```
+
+
+### Lenient mode (i.e., tolerating trailing junk data)
+
+```python
+from image_complete.auto import is_image_complete
+
+# using file names
+print(is_image_complete("/some/where/hello_world.jpg", strict=False, check_size=100))
+print(is_image_complete("/some/where/image.png", strict=False, check_size=100))
+
+# using bytes or BytesIO
+with open("/some/where/image.bmp", "rb") as fp:
+    b = fp.read()
+print(is_image_complete(b, strict=False))
+```

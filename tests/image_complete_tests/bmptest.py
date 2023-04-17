@@ -32,6 +32,18 @@ class TestPng(ImageCompleteTest):
     def test_empty_is_bmp_bytes(self):
         self.assertFalse(is_bmp(self.data_content("empty.bmp")))
 
+    def test_junk_bmp_strict(self):
+        self.assertFalse(is_bmp_complete(self.data_file("junk.bmp"), strict=True))
+
+    def test_junk_bmp_strict_bytes(self):
+        self.assertFalse(is_bmp_complete(self.data_content("junk.bmp"), strict=True))
+
+    def test_junk_bmp_lenient(self):
+        self.assertTrue(is_bmp_complete(self.data_file("junk.bmp"), strict=False))
+
+    def test_junk_bmp_lenient_bytes(self):
+        self.assertTrue(is_bmp_complete(self.data_content("junk.bmp"), strict=False))
+
 
 def suite():
     """

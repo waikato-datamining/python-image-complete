@@ -32,6 +32,24 @@ class TestGif(ImageCompleteTest):
     def test_empty_is_gif_bytes(self):
         self.assertFalse(is_gif(self.data_content("empty.gif")))
 
+    def test_junk_gif_strict(self):
+        self.assertFalse(is_gif_complete(self.data_file("junk.gif"), strict=True))
+
+    def test_junk_gif_strict_bytes(self):
+        self.assertFalse(is_gif_complete(self.data_content("junk.gif"), strict=True))
+
+    def test_junk_gif_lenient(self):
+        self.assertTrue(is_gif_complete(self.data_file("junk.gif"), strict=False, check_size=50))
+
+    def test_junk_gif_lenient_bytes(self):
+        self.assertTrue(is_gif_complete(self.data_content("junk.gif"), strict=False, check_size=50))
+
+    def test_junk_gif_lenient_short(self):
+        self.assertFalse(is_gif_complete(self.data_file("junk.gif"), strict=False, check_size=5))
+
+    def test_junk_gif_lenient_short_bytes(self):
+        self.assertFalse(is_gif_complete(self.data_content("junk.gif"), strict=False, check_size=5))
+
 
 def suite():
     """
