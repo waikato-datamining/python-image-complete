@@ -7,8 +7,14 @@ Can also operate on bytes or BytesIO objects.
 
 By default, the library operates in **strict** mode, i.e., no trailing junk data 
 is tolerated. However, by supplying the parameters `strict` and `check_size` this
-can turned into **lenient** mode. The parameter `check_size` (i.e., the number of 
+can be turned into **lenient** mode. The parameter `check_size` (i.e., the number of 
 bytes to read from the end of the file) is only used for formats gif, jpg, png.
+
+## Installation
+
+```bash
+pip install python_image_complete
+```
 
 
 ## Supported image formats
