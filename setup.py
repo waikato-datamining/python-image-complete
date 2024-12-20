@@ -13,7 +13,7 @@ def _read(f):
 
 
 setup(
-    name="python-image-complete",
+    name="python_image_complete",
     description="Python3 library for checking whether images are complete.",
     long_description=(
         _read('DESCRIPTION.rst') + b'\n' +
