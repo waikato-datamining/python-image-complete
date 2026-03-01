@@ -5,6 +5,7 @@ Changelog
 ------------------
 
 - switched to underscores in project name
+- approved astro-jingtao's PR that enhances the image type detection and validation logic (https://github.com/waikato-datamining/python-image-complete/pull/3)
 
 
 0.0.5 (2023-04-17)
