@@ -31,7 +31,7 @@ setup(
     packages=[
         "image_complete",
     ],
-    version="0.0.5",
+    version="0.0.6",
     author='Peter Reutemann',
     author_email='fracpete@waikato.ac.nz',
 )
