@@ -1,9 +1,68 @@
+import tempfile
 import unittest
+from pathlib import Path
+
+from image_complete.auto import get_image_type, is_image_complete
+
 from .basetest import ImageCompleteTest
-from image_complete.auto import is_image_complete
+
+
+class TestGetImageType(ImageCompleteTest):
+
+    def test_get_image_type_from_file(self):
+        self.assertEqual("gif", get_image_type(self.data_file("complete.gif")))
+        self.assertEqual("jpg", get_image_type(self.data_file("complete.jpg")))
+        self.assertEqual("png", get_image_type(self.data_file("complete.png")))
+        self.assertEqual("bmp", get_image_type(self.data_file("complete.bmp")))
+        self.assertEqual("webp", get_image_type(self.data_file("complete.webp")))
+
+    def test_get_image_type_from_content(self):
+        self.assertEqual("gif", get_image_type(self.data_content("complete.gif")))
+        self.assertEqual("jpg", get_image_type(self.data_content("complete.jpg")))
+        self.assertEqual("png", get_image_type(self.data_content("complete.png")))
+        self.assertEqual("bmp", get_image_type(self.data_content("complete.bmp")))
+        self.assertEqual("webp", get_image_type(self.data_content("complete.webp")))
+
+    def test_get_image_type_from_bytes(self):
+        with open(self.data_file("complete.jpg"), "rb") as fp:
+            data = fp.read()
+        self.assertEqual("jpg", get_image_type(data))
+
+    def test_get_image_type_consistency(self):
+        self.assertEqual("jpg", get_image_type(self.data_file("complete.jpg"), check_consistency=True))
+        self.assertEqual("unknown", get_image_type(self.data_file("file.blah"), check_consistency=True))
+
+    def test_get_image_type_inconsistent_extension_signature(self):
+        with open(self.data_file("complete.jpg"), "rb") as fp:
+            jpg_data = fp.read()
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            fake_png_path = Path(temp_dir) / "actually_jpg.png"
+            fake_png_path.write_bytes(jpg_data)
+
+            self.assertEqual("png", get_image_type(str(fake_png_path)))
+            self.assertEqual("inconsistent", get_image_type(str(fake_png_path), check_consistency=True))
+
+    def test_get_image_type_unsupported(self):
+        self.assertEqual("unknown", get_image_type(self.data_file("file.blah")))
+
+    def test_get_image_type_invalid_input(self):
+        with self.assertRaises(TypeError):
+            get_image_type(123)
 
 
 class TestAuto(ImageCompleteTest):
+
+    def test_inconsistent_type_raises_with_consistency_check(self):
+        with open(self.data_file("complete.jpg"), "rb") as fp:
+            jpg_data = fp.read()
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            fake_png_path = Path(temp_dir) / "actually_jpg.png"
+            fake_png_path.write_bytes(jpg_data)
+
+            with self.assertRaises(ValueError):
+                is_image_complete(str(fake_png_path), check_consistency=True)
 
     def test_complete_gif(self):
         self.assertTrue(is_image_complete(self.data_file("complete.gif")))
@@ -172,7 +231,10 @@ def suite():
     :return: the test suite
     :rtype: unittest.TestSuite
     """
-    return unittest.TestLoader().loadTestsFromTestCase(TestAuto)
+    test_suite = unittest.TestSuite()
+    test_suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestGetImageType))
+    test_suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestAuto))
+    return test_suite
 
 
 if __name__ == '__main__':
