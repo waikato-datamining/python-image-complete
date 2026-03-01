@@ -21,7 +21,6 @@ setup(
     url="https://github.com/waikato-datamining/python-image-complete",
     classifiers=[
         'Development Status :: 4 - Beta',
-        'License :: OSI Approved :: MIT License',
         'Topic :: Multimedia :: Graphics',
         'Programming Language :: Python :: 3',
     ],
